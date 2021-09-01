@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
-using System.Globalization;
-using System.Reflection;
 
-namespace Telegram.Bot.CommandHandler
+namespace Telegram.Bot.Interactivity.Commands
 {
     public class TelegramCommandHandler
     {

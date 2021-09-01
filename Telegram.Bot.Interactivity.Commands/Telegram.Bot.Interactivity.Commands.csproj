@@ -9,20 +9,20 @@
     <Copyright>Copyright © 2020-2021</Copyright>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
-    <RepositoryUrl>https://github.com/SirTony/Telegram.Bot-Tools/tree/master/TelegramCommandHandler</RepositoryUrl>
+    <RepositoryUrl></RepositoryUrl>
     <PackageTags>Telegram Bot Telegram Commands Command Helper Command Module</PackageTags>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
-    <PackageId>Telegram.Bot.CommandHandler.SirTony</PackageId>
+    <PackageId>Telegram.Bot.Interactivity.Commands</PackageId>
     <Authors>Ali Bdeir, Tony Stark</Authors>
-    <Company>Telegram.Bot.ComandHandler Contributors</Company>
+    <Company>Telegram.Bot.Interactivity.Commands Contributors</Company>
     <Product>Telegram Bot Command Handler</Product>
     <Version>2.0</Version>
     <PackageReleaseNotes></PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
-    <AssemblyName>Telegram.Bot.CommandHandler</AssemblyName>
-    <RootNamespace>Telegram.Bot.CommandHandler</RootNamespace>
+    <AssemblyName>Telegram.Bot.Interactivity.Commands</AssemblyName>
+    <RootNamespace>Telegram.Bot.Interactivity.Commands</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

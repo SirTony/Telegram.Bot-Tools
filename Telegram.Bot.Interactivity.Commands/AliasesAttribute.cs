@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
 
-namespace Telegram.Bot.CommandHandler
+namespace Telegram.Bot.Interactivity.Commands
 {
     /// <summary>
     ///     Alternative commands to invoke the same method.

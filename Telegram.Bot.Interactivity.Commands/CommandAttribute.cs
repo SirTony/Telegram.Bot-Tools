@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Telegram.Bot.CommandHandler
+namespace Telegram.Bot.Interactivity.Commands
 {
     /// <summary>
     ///     Marks a Task as a Command

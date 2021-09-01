@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
-namespace Telegram.Bot.CommandHandler
+namespace Telegram.Bot.Interactivity.Commands
 {
     /// <summary>
     ///     Base class for command modules.

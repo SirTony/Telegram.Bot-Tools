@@ -4,7 +4,7 @@ using Interactivity.Extensions;
 using Interactivity.Types;
 using Sample.CommandModules;
 using Telegram.Bot;
-using Telegram.Bot.CommandHandler;
+using Telegram.Bot.Interactivity.Commands;
 
 namespace Sample
 {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandHandler", "TelegramCommandHandler\CommandHandler.csproj", "{E5AB62A7-D92B-4479-984D-1E4A407B47F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegram.Bot.Interactivity.Commands", "Telegram.Bot.Interactivity.Commands\Telegram.Bot.Interactivity.Commands.csproj", "{E5AB62A7-D92B-4479-984D-1E4A407B47F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample", "Sample\Sample.csproj", "{710F2B5C-3719-4D0E-9320-E5AF10EABB3D}"
 EndProject

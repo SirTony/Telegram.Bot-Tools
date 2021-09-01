@@ -9,7 +9,7 @@ using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace Telegram.Bot.CommandHandler
+namespace Telegram.Bot.Interactivity.Commands
 {
     public class CommandUpdateHandler : IUpdateHandler
     {
