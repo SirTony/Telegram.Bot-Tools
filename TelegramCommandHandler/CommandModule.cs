@@ -1,27 +1,30 @@
-﻿using CommandHandler.Types;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Telegram.Bot.Types;
 
-namespace CommandHandler
+namespace Telegram.Bot.CommandHandler
 {
     /// <summary>
-    /// Base class for command modules.
+    ///     Base class for command modules.
     /// </summary>
     public abstract class CommandModule
     {
+        /// <summary>
+        ///     Invoked before to command execution.
+        /// </summary>
+        /// <param name="client">The current Telegram bot client.</param>
+        /// <param name="update">The <see cref="Update" /> that triggered the command execution.</param>
+        /// <param name="ct">Async cancellation support.</param>
+        public virtual Task BeforeExecutionAsync( ITelegramBotClient client, Update update, CancellationToken ct )
+            => Task.Delay( 0 );
 
         /// <summary>
-        /// Called before a command is executed.
+        ///     Invoked after command execution.
         /// </summary>
-        /// <param name="ctx"></param>
-        /// <returns></returns>
-        public virtual async Task BeforeExecutionAsync(CommandContext ctx) => await Task.Delay(0);
-
-        /// <summary>
-        /// Called after a command is executed.
-        /// </summary>
-        /// <param name="ctx"></param>
-        /// <returns></returns>
-        public virtual async Task AfterExecutionAsync(CommandContext ctx) => await Task.Delay(0);
-
+        /// <param name="client">The current Telegram bot client.</param>
+        /// <param name="update">The <see cref="Update" /> that triggered the command execution.</param>
+        /// <param name="ct">Async cancellation support.</param>
+        public virtual Task AfterExecutionAsync( ITelegramBotClient client, Update update, CancellationToken ct )
+            => Task.Delay( 0 );
     }
 }

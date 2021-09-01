@@ -1,45 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections.Immutable;
+using System.Globalization;
+using System.Reflection;
 
-namespace CommandHandler
+namespace Telegram.Bot.CommandHandler
 {
     public class TelegramCommandHandler
     {
+        private readonly ImmutableHashSet<CommandModule>.Builder _commandModules;
 
         /// <summary>
-        /// All the registered command modules.
+        ///     All the registered command modules.
         /// </summary>
-        public List<Type> RegisteredCommandModules { get; } = new List<Type>();
+        public ImmutableHashSet<CommandModule> RegisteredCommandModules => this._commandModules.ToImmutable();
 
         /// <summary>
-        /// Prefix for the commands. Defaults to a slach (/)
+        ///     Prefix for the commands. Defaults to a slash (/)
         /// </summary>
-        public string Prefix { get; set; }
+        public char Prefix { get; init; } = '/';
 
         /// <summary>
-        /// Determines whether or not commands are case-sensitive.
+        ///     Determines whether or not commands are case-sensitive.
         /// </summary>
-        public bool CaseSensitive { get; set; }
+        public bool IsCaseSensitive { get; init; } = false;
+
+        public TelegramCommandHandler() => this._commandModules = ImmutableHashSet.CreateBuilder<CommandModule>();
 
         /// <summary>
-        /// Create a new telegram command handler.
-        /// </summary>
-        /// <param name="prefix">Determines what's the prefix for commands. Defaults to a slash (/)</param>
-        public TelegramCommandHandler(string prefix = "/", bool caseSensitive = false)
-        {
-            Prefix = prefix;
-            CaseSensitive = caseSensitive;
-        }
-
-        /// <summary>
-        /// Register a CommandModule subclass as a command class. You can register multiple classes.
+        ///     Register a CommandModule subclass as a command class. You can register multiple classes.
         /// </summary>
         /// <typeparam name="T">CommandModule subclass</typeparam>
-        public void RegisterCommands<T>() where T : CommandModule
-        {
-            RegisteredCommandModules.Add(typeof(T));
-        }
+        /// <param name="constructorArgs">A list of arguments to pass to the <see cref="CommandModule" /> constructor.</param>
+        /// <returns>True if the commands have been registered, false otherwise.</returns>
+        public bool RegisterCommands<T>( params object[] constructorArgs ) where T : CommandModule
+            => this.RegisterCommands( typeof( T ), constructorArgs );
 
+        /// <summary>
+        ///     Register a CommandModule subclass as a command class. You can register multiple classes.
+        /// </summary>
+        /// <param name="t">CommandModule subclass</param>
+        /// <param name="constructorArgs">A list of arguments to pass to the <see cref="CommandModule" /> constructor.</param>
+        /// <returns>True if the commands have been registered, false otherwise.</returns>
+        public bool RegisterCommands( Type t, params object[] constructorArgs )
+        {
+            if( t is null ) throw new ArgumentNullException( nameof( t ) );
+            if( !typeof( CommandModule ).IsAssignableFrom( t ) )
+                throw new ArgumentException(
+                    $"Type must be a subclass of {typeof( CommandModule ).FullName}",
+                    nameof( t )
+                );
+
+            var instance = Activator.CreateInstance( t, constructorArgs );
+            if( instance is null ) throw new InvalidOperationException( "failed to create CommandModule instance" );
+
+            return this._commandModules.Add( (CommandModule)instance );
+        }
     }
 }

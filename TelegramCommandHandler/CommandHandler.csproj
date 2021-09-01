@@ -1,29 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Provides an easy way to handle Telegram commands.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl></PackageProjectUrl>
-    <Copyright>Copyright © 2020</Copyright>
+    <Copyright>Copyright © 2020-2021</Copyright>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
-    <RepositoryUrl>https://github.com/AliBdeir/Telegram.Bot-Tools/tree/master/TelegramCommandHandler</RepositoryUrl>
+    <RepositoryUrl>https://github.com/SirTony/Telegram.Bot-Tools/tree/master/TelegramCommandHandler</RepositoryUrl>
     <PackageTags>Telegram Bot Telegram Commands Command Helper Command Module</PackageTags>
-    <AssemblyVersion>1.5.0.0</AssemblyVersion>
-    <FileVersion>1.5.0.0</FileVersion>
-    <PackageId>Telegram.Bot.CommandHandler</PackageId>
-    <Authors>Ali Bdeir</Authors>
-    <Company />
-    <Product>Telegram Command Handler</Product>
-    <Version>1.5</Version>
-    <PackageReleaseNotes>Made Before and AfterExecutionAsync an async Task.</PackageReleaseNotes>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <PackageId>Telegram.Bot.CommandHandler.SirTony</PackageId>
+    <Authors>Ali Bdeir, Tony Stark</Authors>
+    <Company>Telegram.Bot.ComandHandler Contributors</Company>
+    <Product>Telegram Bot Command Handler</Product>
+    <Version>2.0</Version>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>Telegram.Bot.CommandHandler</AssemblyName>
+    <RootNamespace>Telegram.Bot.CommandHandler</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Telegram.Bot" Version="15.4.0" />
+    <PackageReference Include="Telegram.Bot" Version="16.0.0" />
+    <PackageReference Include="Telegram.Bot.Extensions.Polling" Version="0.2.0" />
   </ItemGroup>
 
   <ItemGroup>

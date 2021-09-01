@@ -1,39 +1,57 @@
-﻿using CommandHandler;
-using CommandHandler.Attributes;
-using CommandHandler.Types;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Interactivity.Extensions;
+using Telegram.Bot;
+using Telegram.Bot.CommandHandler;
+using Telegram.Bot.Types;
 
 namespace Sample.CommandModules
 {
     public class InteractivityCommands : CommandModule
     {
-
-        [Command("conversation")]
-        public async Task StartConversation(CommandContext ctx)
+        [Command( "conversation" )]
+        public async Task StartConversation(
+            ITelegramBotClient client,
+            Update             update,
+            CancellationToken  ct,
+            string             commandData
+        )
         {
+            if( client is not TelegramBotClient botClient ) return;
+
             // Ask the user what's their name.
-            await ctx.RespondAsync($"Hello! What's your name?");
+            await client.SendTextMessageAsync(
+                update.Message.Chat.Id,
+                "Hello! What's your name?",
+                cancellationToken: ct
+            );
+
             // Wait for a result.
-            var result = await ctx.BotClient.GetInteractivity().WaitForMessageAsync(ctx.Chat, ctx.Message.From);
-            if (result.Value == null)
+            var result = await botClient.GetInteractivity()
+                                        .WaitForMessageAsync( update.Message.Chat, update.Message.From );
+            if( result.Value == null )
             {
                 //Timed out
-                await ctx.RespondAsync($"Timed out. Please try again.");
-            } else
+                await client.SendTextMessageAsync(
+                    update.Message.Chat.Id,
+                    "Timed out. Please try again.",
+                    cancellationToken: ct
+                );
+            }
+            else
             {
                 //Didn't time out.
                 //Get the message
                 var message = result.Value;
                 //Get the bot's user.
-                var me = await ctx.BotClient.GetMeAsync();
+                var me = await client.GetMeAsync();
                 //Respond to the command.
-                await ctx.RespondAsync($"Hello, {message.Text}! I am {me.FirstName}.");
+                await client.SendTextMessageAsync(
+                    update.Message.Chat.Id,
+                    $"Hello, {message.Text}! I am {me.FirstName}.",
+                    cancellationToken: ct
+                );
             }
         }
-
     }
 }

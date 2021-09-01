@@ -1,52 +1,68 @@
-﻿using CommandHandler;
-using CommandHandler.Attributes;
-using CommandHandler.Types;
-using System;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using Telegram.Bot;
+using Telegram.Bot.CommandHandler;
+using Telegram.Bot.Types;
 
 namespace Sample.CommandModules
 {
     public class BasicCommands : CommandModule
     {
-
         // Optional override. Called before a command is executed.
-        public async override Task BeforeExecutionAsync(CommandContext ctx)
-        {
-            Console.WriteLine($"Executing Command...");
-            await Task.Delay(0);
-        }
+        public override Task BeforeExecutionAsync( ITelegramBotClient client, Update update, CancellationToken ct )
+            => Console.Out.WriteLineAsync( "Executing Command..." );
 
         // Optional override. Called after a command is executed.
-        public async override Task AfterExecutionAsync(CommandContext ctx)
+        public override Task AfterExecutionAsync( ITelegramBotClient client, Update update, CancellationToken ct )
+            => Console.Out.WriteLineAsync( "Executed Command." );
+
+        [Aliases( "pingbot" )]
+        [Command( "ping" )]
+        public async Task PingCommand(
+            ITelegramBotClient client,
+            Update             update,
+            CancellationToken  ct,
+            string             commandData
+        )
         {
-            Console.WriteLine($"Executed Command.");
-            await Task.Delay(0);
+            await Console.Out.WriteLineAsync( "Ping command request detected." );
+            await client.SendTextMessageAsync( update.Message.Chat.Id, "Pong!", cancellationToken: ct );
         }
 
-        [Aliases("pingbot")]
-        [Command("ping")]
-        public async Task PingCommand(CommandContext ctx)
+        [Aliases( "today", "whatistoday" )]
+        [Command( "date" )]
+        public async Task DateCommand(
+            ITelegramBotClient client,
+            Update             update,
+            CancellationToken  ct,
+            string             commandData
+        )
         {
-            Console.WriteLine("Ping command request detected.");
-            await ctx.RespondAsync($"Pong!");
+            await Console.Out.WriteLineAsync( "Date command request detected." );
+            var formattedDate = DateTime.Now.ToString( "dddd, dd MMMM yyyy" );
+            await client.SendTextMessageAsync(
+                update.Message.Chat.Id,
+                $"Today is {formattedDate}",
+                cancellationToken: ct
+            );
         }
 
-        [Aliases("today", "whatistoday")]
-        [Command("date")]
-        public async Task DateCommand(CommandContext ctx)
+        [Aliases( "info", "information" )]
+        [Command( "whoami" )]
+        public async Task WhoAmICommand(
+            ITelegramBotClient client,
+            Update             update,
+            CancellationToken  ct,
+            string             commandData
+        )
         {
-            Console.WriteLine("Date command request detected.");
-            string formattedDate = DateTime.Now.ToString("dddd, dd MMMM yyyy");
-            await ctx.RespondAsync($"Today is {formattedDate}");
+            await Console.Out.WriteLineAsync( "Who Am I command detected." );
+            await client.SendTextMessageAsync(
+                update.Message.Chat.Id,
+                $"You are {update.Message.Chat.FirstName} {update.Message.Chat.LastName} of Telegram ID {update.Message.Chat.Id}.",
+                cancellationToken: ct
+            );
         }
-
-        [Aliases("info", "information")]
-        [Command("whoami")]
-        public async Task WhoAmICommand(CommandContext ctx)
-        {
-            Console.WriteLine("Who Am I command detected.");
-            await ctx.RespondAsync($"You are {ctx.Chat.FirstName} {ctx.Chat.LastName} of Telegram ID {ctx.ChatId}.");
-        }
-
     }
 }
